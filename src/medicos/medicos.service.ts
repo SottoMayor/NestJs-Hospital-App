@@ -13,6 +13,13 @@ export class MedicosService {
     constructor( @InjectRepository(MedicosRepository) 
     private MedicosRepository: MedicosRepository ){}
 
+    // OBS: Criação de método privado para evitar repetição de código.
+    private async medicoFinder(id: string): Promise<Medicos>{
+        const foundMedico = await this.MedicosRepository.findOne(id);
+        // Verificar encontrou algo
+        return foundMedico;
+    }
+
     public async getMedicos(FilterMedicoDto: FilterMedicoDto): Promise<Medicos[]>{
 
         const { nome, crm, telefoneFixo, telefoneCelular, cep, especialidade } = FilterMedicoDto;
@@ -43,7 +50,6 @@ export class MedicosService {
             query.andWhere('LOWER(medicos.especialidade) LIKE LOWER(:especialidade) ', { especialidade: `%${especialidade}%` })
         }
 
-
         const medicos = await query.getMany();
 
         return medicos;
@@ -51,8 +57,7 @@ export class MedicosService {
     }
 
     public async getMedicoById(id: string): Promise<any>{
-        const foundMedico = await this.MedicosRepository.findOne(id);
-        // Verificar encontrou algo
+        const foundMedico = await this.medicoFinder(id);
 
         const foundCep = await consultarCep(foundMedico.cep)
         // Verificar se o CEP é valido
@@ -85,8 +90,7 @@ export class MedicosService {
     public async updatedMedicoById(id: string, CreateMedicoDto): Promise<Medicos>{
         const { nome, crm, telefoneFixo, telefoneCelular, cep, especialidade } = CreateMedicoDto;
 
-        const foundMedico = await this.MedicosRepository.findOne(id);
-        // Verificar encontrou algo
+        const foundMedico = await this.medicoFinder(id); 
 
         foundMedico.nome = nome;
         foundMedico.crm = crm;
@@ -101,10 +105,18 @@ export class MedicosService {
 
     }
 
+    /*
+     * OBS: 
+        Por falta de tempo não farei o soft delete, mas vou escrever como seria possível de ser feito.
+        Antes de tudo deveríamos criar uma tabela para salvar os médicos que foram deletados, após, 
+        na lógica de negócio, devemos encontrar o médico que desejamos deletar, passar os registros 
+        desse médico para a tabela de médicos deletados e por fim, de fato, deletar ele da nossa tabela 
+        de médicos.
+    */
+
     public async deleteMedicoById(id: string): Promise<void>{
 
-        const foundMedico = await this.MedicosRepository.findOne(id);
-        // Verificar encontrou algo
+        const foundMedico = await this.medicoFinder(id);
 
         await this.MedicosRepository.remove(foundMedico);
 
