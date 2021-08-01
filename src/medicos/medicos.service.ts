@@ -4,12 +4,51 @@ import { CreateMedicoDto } from './DTO/create-medico.dto';
 import { Medicos } from './medicos.entity';
 import { MedicosRepository } from './medicos.repository';
 import { consultarCep } from 'correios-brasil/dist';
+import { FilterMedicoDto } from './DTO/filter-medico.dto';
+import { EspecialidadeMedica } from './medicos-especialidade.enum';
 
 @Injectable()
 export class MedicosService {
 
     constructor( @InjectRepository(MedicosRepository) 
     private MedicosRepository: MedicosRepository ){}
+
+    public async getMedicos(FilterMedicoDto: FilterMedicoDto): Promise<Medicos[]>{
+
+        const { nome, crm, telefoneFixo, telefoneCelular, cep, especialidade } = FilterMedicoDto;
+
+        const query = this.MedicosRepository.createQueryBuilder('medicos');
+
+        if(nome){
+            query.andWhere('LOWER(medicos.nome) LIKE LOWER(:nome) ', { nome: `%${nome}%` })
+        }
+
+        if(crm){
+            query.andWhere('medicos.crm LIKE :crm ', { crm: `%${crm}%` })
+        }
+
+        if(telefoneFixo){
+            query.andWhere('medicos.telefoneFixo LIKE :telefoneFixo ', { telefoneFixo: `%${telefoneFixo}%` })
+        }
+
+        if(telefoneCelular){
+            query.andWhere('medicos.telefoneCelular LIKE :telefoneCelular ', { telefoneCelular: `%${telefoneCelular}%` })
+        }
+
+        if(cep){
+            query.andWhere('medicos.cep LIKE :cep ', { cep: `%${cep}%` })
+        }
+
+        if(especialidade){
+            query.andWhere('LOWER(medicos.especialidade) LIKE LOWER(:especialidade) ', { especialidade: `%${especialidade}%` })
+        }
+
+
+        const medicos = await query.getMany();
+
+        return medicos;
+
+    }
 
     public async getMedicoById(id: string): Promise<any>{
         const foundMedico = await this.MedicosRepository.findOne(id);

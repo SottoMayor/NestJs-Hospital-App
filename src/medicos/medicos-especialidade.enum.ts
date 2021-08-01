@@ -4,12 +4,12 @@
 // na hora de cadastrar uma especialidade.
 
 export enum EspecialidadeMedica {
-    Alergologia = 'Alergologia',
-    Angiologia = 'Angiologia',
-    BucoMaxilo = 'Buco maxilo',
-    CardiologiaClinica = 'Cardiologia clínica',
-    CardiologiaInfantil = 'Cardiologia infantil',
-    CirurgiaCabeçaEPescoço = 'Cirurgia cabeça e pescoço',
-    CirurgiaCardiaca = 'Cirurgia cardíaca',
-    CirurgiaDeTorax = 'Cirurgia de tórax',
+    ALERGOLOGIA = 'ALERGOLOGIA',
+    ANGIOLOGIA = 'ANGIOLOGIA',
+    BUCO_MAXILO = 'BUCO_MAXILO',
+    CARDIOLOGIA_CLÍNICA = 'CARDIOLOGIA_CLÍNICA',
+    CARDIOLOGIA_INFANTIL = 'CARDIOLOGIA_INFANTIL',
+    CIRURGIA_CABEÇA_E_PESCOÇO = 'CIRURGIA_CABEÇA_E_PESCOÇO',
+    CIRURGIA_CARDÍACA = 'CIRURGIA_CARDÍACA',
+    CIRURGIA_DE_TÓRAX = 'CIRURGIA_DE_TÓRAX',
 }
