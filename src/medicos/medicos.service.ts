@@ -43,6 +43,14 @@ export class MedicosService {
         return newMedico;
     }
 
+    public async deleteMedicoById(id: string): Promise<void>{
+
+        const foundMedico = await this.MedicosRepository.findOne(id);
+        // Verificar encontrou algo
+
+        await this.MedicosRepository.remove(foundMedico);
+
+    }
 
 
 }
