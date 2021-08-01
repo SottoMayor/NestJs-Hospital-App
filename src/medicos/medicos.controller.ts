@@ -9,7 +9,7 @@ export class MedicosController {
     constructor(private medicosService: MedicosService){}
 
     @Get('/:id')
-    public getMedicoById(@Param('id') id: string): Promise<Medicos>{
+    public getMedicoById(@Param('id') id: string): Promise<any>{
         return this.medicosService.getMedicoById(id);
     }
 

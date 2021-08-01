@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMedicoDto } from './DTO/create-medico.dto';
 import { Medicos } from './medicos.entity';
 import { MedicosRepository } from './medicos.repository';
+import { consultarCep } from 'correios-brasil/dist';
 
 @Injectable()
 export class MedicosService {
@@ -10,10 +11,19 @@ export class MedicosService {
     constructor( @InjectRepository(MedicosRepository) 
     private MedicosRepository: MedicosRepository ){}
 
-    public async getMedicoById(id: string): Promise<Medicos>{
+    public async getMedicoById(id: string): Promise<any>{
         const foundMedico = await this.MedicosRepository.findOne(id);
         // Verificar encontrou algo
-        return foundMedico
+
+        const foundCep = await consultarCep(foundMedico.cep)
+        // Verificar se o CEP é valido
+
+        const result = {
+            dadosMedicos: foundMedico,
+            dadosCep: foundCep
+        }
+
+        return result;
     } 
 
     public async createMedico(CreateMedicoDto: CreateMedicoDto):Promise<Medicos>{
