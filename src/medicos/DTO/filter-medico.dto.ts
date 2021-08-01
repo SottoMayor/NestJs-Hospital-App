@@ -1,4 +1,5 @@
 import { EspecialidadeMedica } from "../medicos-especialidade.enum";
+import { IsOptional } from "class-validator";
 
 /*
  * OBS: 
@@ -8,10 +9,21 @@ import { EspecialidadeMedica } from "../medicos-especialidade.enum";
 */
 
 export class FilterMedicoDto{
+    @IsOptional()
     nome?: string;
+
+    @IsOptional()
     especialidade?: EspecialidadeMedica;
+
+    @IsOptional()
     crm?: string;
+
+    @IsOptional()
     cep?: string;
+
+    @IsOptional()
     telefoneFixo?: string;
+
+    @IsOptional()
     telefoneCelular?: string;
 }
