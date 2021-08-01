@@ -10,6 +10,12 @@ export class MedicosService {
     constructor( @InjectRepository(MedicosRepository) 
     private MedicosRepository: MedicosRepository ){}
 
+    public async getMedicoById(id: string): Promise<Medicos>{
+        const foundMedico = await this.MedicosRepository.findOne(id);
+        // Verificar encontrou algo
+        return foundMedico
+    } 
+
     public async createMedico(CreateMedicoDto: CreateMedicoDto):Promise<Medicos>{
         const { nome, crm, telefoneFixo, telefoneCelular, cep, especialidade } = CreateMedicoDto;
 
