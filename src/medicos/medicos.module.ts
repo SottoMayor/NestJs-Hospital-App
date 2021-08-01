@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MedicosRepository } from './medico.repository';
+import { MedicosRepository } from './medicos.repository';
 import { MedicosController } from './medicos.controller';
 import { MedicosService } from './medicos.service';
 

@@ -1,8 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { EspecialidadeMedica } from "./medico-especialidade.enum";
+import { EspecialidadeMedica } from "./medicos-especialidade.enum";
 
 // Definindo Entidade médicos, que seguem a estrutura proposta no documento do teste
 
+// OBS: Apesar de esperarmos números em CRM, Telefone Fixo, Telefone Celular e Telefone, podemos
+// ter números muito grandes podemos ter uma incompatibilidade relacionado a bytes. Esse problema
+// pode ser contornado se mudarmos para tipo string, mas para garantir que apenas números serão 
+// passados devemos fazer uma validação nesses campos.
 @Entity()
 export class Medicos{
     @PrimaryGeneratedColumn('increment')
@@ -10,15 +14,18 @@ export class Medicos{
 
     @Column()
     nome: string;
+
+    @Column()
+    crm: string;
     
     @Column()
-    telefoneFixo: number;
+    telefoneFixo: string;
 
     @Column()
-    telefoneCelular: number;
+    telefoneCelular: string;
 
     @Column()
-    cep: number;
+    cep: string;
 
     @Column()
     especialidade: EspecialidadeMedica
