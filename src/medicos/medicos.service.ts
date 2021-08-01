@@ -43,6 +43,25 @@ export class MedicosService {
         return newMedico;
     }
 
+    public async updatedMedicoById(id: string, CreateMedicoDto): Promise<Medicos>{
+        const { nome, crm, telefoneFixo, telefoneCelular, cep, especialidade } = CreateMedicoDto;
+
+        const foundMedico = await this.MedicosRepository.findOne(id);
+        // Verificar encontrou algo
+
+        foundMedico.nome = nome;
+        foundMedico.crm = crm;
+        foundMedico.telefoneFixo = telefoneFixo;
+        foundMedico.telefoneCelular = telefoneCelular;
+        foundMedico.cep = cep;
+        foundMedico.especialidade = especialidade;
+
+        await this.MedicosRepository.save(foundMedico);
+
+        return foundMedico;
+
+    }
+
     public async deleteMedicoById(id: string): Promise<void>{
 
         const foundMedico = await this.MedicosRepository.findOne(id);

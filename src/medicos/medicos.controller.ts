@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateMedicoDto } from './DTO/create-medico.dto';
 import { Medicos } from './medicos.entity';
 import { MedicosService } from './medicos.service';
@@ -17,6 +17,13 @@ export class MedicosController {
     public createMedico(@Body() CreateMedicoDto: CreateMedicoDto): Promise<Medicos>{
         return this.medicosService.createMedico(CreateMedicoDto)
     }
+
+    @Put('/:id')
+    public uptadeMedicoById(@Param('id') id: string, 
+    @Body() CreateMedicoDto: CreateMedicoDto): Promise<Medicos>{
+        return this.medicosService.updatedMedicoById(id, CreateMedicoDto);
+    }
+
 
     @Delete('/:id')
     public deleteMedicoById(@Param('id') id: string): void{
