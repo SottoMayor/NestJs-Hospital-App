@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength, IsNumberString, IsPhoneNumber, IsMobilePhone} from "class-validator";
+import { IsNotEmpty, IsString, MaxLength, IsNumberString, IsPhoneNumber, IsMobilePhone, IsPostalCode, MinLength} from "class-validator";
 import { EspecialidadeMedica } from "../medicos-especialidade.enum"
 
 export class CreateMedicoDto{
@@ -27,6 +27,7 @@ export class CreateMedicoDto{
     @MaxLength(8, { message: 'O CEP deve ter no máximo 8 dígitos e todos numéricos.' }) 
         // No doc de teste não disse o tamanho de dígitos do cep, mas no Brasil esse número é 8, mas eu
         // quis botar para certificar que o usuário irá passar apenas números ao invés de pontos ou traços.
+    @MinLength(8, { message: 'O CEP deve ter no mínimo 8 dígitos e todos numéricos.' })
     cep: string;
 
     @IsNotEmpty({ message: 'Você deve preencher esse campo.' })

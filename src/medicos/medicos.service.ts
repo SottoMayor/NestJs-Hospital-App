@@ -1,11 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMedicoDto } from './DTO/create-medico.dto';
 import { Medicos } from './medicos.entity';
 import { MedicosRepository } from './medicos.repository';
 import { consultarCep } from 'correios-brasil/dist';
 import { FilterMedicoDto } from './DTO/filter-medico.dto';
-import { EspecialidadeMedica } from './medicos-especialidade.enum';
 
 @Injectable()
 export class MedicosService {
@@ -16,7 +15,11 @@ export class MedicosService {
     // OBS: Criação de método privado para evitar repetição de código.
     private async medicoFinder(id: string): Promise<Medicos>{
         const foundMedico = await this.MedicosRepository.findOne(id);
-        // Verificar encontrou algo
+        
+        if(!foundMedico){
+            throw new NotFoundException(`Não foi possível encontrar o registro de ID ${id}.`)
+        }
+
         return foundMedico;
     }
 
@@ -59,15 +62,20 @@ export class MedicosService {
     public async getMedicoById(id: string): Promise<any>{
         const foundMedico = await this.medicoFinder(id);
 
+        // Verificando se o CEP é válido!
+        try{
         const foundCep = await consultarCep(foundMedico.cep)
-        // Verificar se o CEP é valido
-
+        
         const result = {
             dadosMedicos: foundMedico,
             dadosCep: foundCep
         }
 
         return result;
+
+        } catch(err){
+            throw new HttpException(err.message, 422);
+        }
     } 
 
     public async createMedico(CreateMedicoDto: CreateMedicoDto):Promise<Medicos>{
@@ -114,10 +122,10 @@ export class MedicosService {
         de médicos.
     */
 
-    public async deleteMedicoById(id: string): Promise<void>{
+    public async deleteMedicoById(id: string): Promise<void>  {
 
         const foundMedico = await this.medicoFinder(id);
-
+        
         await this.MedicosRepository.remove(foundMedico);
 
     }
