@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "f566898e-c0a3-419d-b8d1-da725bf5aebc",
+		"name": "NestJs-ADIANTE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criando novo médico",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Beltrano da Costa\",\r\n    \"crm\": 7654322,\r\n    \"telefoneFixo\": \"36329987\",\r\n    \"telefoneCelular\": \"11990909090\",\r\n    \"cep\": \"69050001\",\r\n    \"especialidade\": \"Buco Maxilo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/medicos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizando médico via ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"João da Costa\",\r\n    \"crm\": 76521343,\r\n    \"telefoneFixo\": \"36323932\",\r\n    \"telefoneCelular\": \"11990909090\",\r\n    \"cep\": \"69050001\",\r\n    \"especialidade\": \"Cirurgia Cardíaca\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/medicos/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"medicos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletando médicos via ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/medicos/3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"medicos",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscando médico via ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/medicos/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"medicos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscando Todos os Médicos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/medicos?crm=22",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"medicos"
+					],
+					"query": [
+						{
+							"key": "crm",
+							"value": "22"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
