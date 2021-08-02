@@ -71,3 +71,15 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Instruções sobre o APP
+# Observação
+Nessa aplicação eu usei o banco de dados [postgres](https://www.postgresql.org/ ) hospedado na nuvem com [elephantesql]:(https://www.elephantsql.com/) e o [DBeaver]:(https://dbeaver.io/) como SGBD, esse último você deve ter instalador na sua máquina, pois vamos usá-lo na execução. Dentro da pasta `src` há o script `app.module.ts`, nele há todos os dados da conexão com o banco de dados, faça a conexão com o DBeaver usando esses mesmos dados.
+# Como rodar
+- 1 - Baixar ou clonar o código desse repositório;
+- 2 - Dar o comando `npm install` no terminal para baixar as dependências do projeto;
+- 3 - Seguir os passos da descritos na OBSERVAÇÃO (tópico acima);
+- 4 - Dar o comando `npm run start:dev` ou `npm run start:prod` para botar a aplicação para funcionar.
+# Ferramenta de Execução da Aplicação
+Nessa aplicação, a ferramenta utilizada foi  [POSTMAN](https://www.postman.com/). Entre no link, baixe a ferramenta e dê um import no arquivo JSON que segue na pasta raiz, com o nome POSTMAN-COLLECTION. Nesse arquivo há EndPoints já predefinidos, que a aplicação espera receber.
+
